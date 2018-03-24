@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "nico2 google calendar",
+    "description": ""
+  },
+  "appShortName": {
+    "message": "nico2 gCal",
+    "description": ""
+  },
+  "appDescription": {
+    "message": "ニコニコ生放送の番組ページから、Google Calendarに予定を簡単に追加できるようにします。",
+    "description": ""
+  }
+}
