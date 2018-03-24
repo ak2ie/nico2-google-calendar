@@ -2,7 +2,7 @@
   "name": "__MSG_appName__",
   "short_name": "__MSG_appShortName__",
   "description": "__MSG_appDescription__",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "manifest_version": 2,
   "default_locale": "ja",
   "icons": {
@@ -37,7 +37,7 @@
     }
   ],
   "oauth2": {
-    "client_id": "",
+    "client_id": "73888334620-lgmhp1ljfiii3h92320n8udpgh5e851k.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/calendar"]
   },
   "permissions": [
@@ -45,5 +45,5 @@
     "storage"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "key": ""
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuAaYvFGUT1CyR1W7pWErbfnctq62H5q4NYIIKvhH+i2q30P5f+4N49BrY9r0JVk8BXSMxKGn+GsP9qlil+q8hVti/Gwg1DBiLNrKbllggAgG4ZtCMzMXy55bwe94iCTmAHoeZNDpnYbr2UYLdcimSxopCvHAREBmgel0AuXr7w8PzbS8+G+eUy7mBIWSVzOcr3t7H6E/T59B8uirfzyXpc9h0zP++rK8vCk0oayFlo51BF6lx013Let6gtdG6Ibgrv2M3KRApeLBA8xqQnMG0D4hIrfr0G4st3Kj7ImtmOkJ1QvnAeLBgVXOvOYrN8ww/V4m6CU/e68yLRBMlMSZNQIDAQAB"
 }
