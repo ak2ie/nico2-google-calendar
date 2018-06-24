@@ -68,3 +68,18 @@ div.nico2-google-calendar-attentionbar {
 	height: 30px;
 	background-color: #FFF8E1;
 }
+
+.nico2-google-calendar-add-block {
+	padding-top: 10px;
+	font-size: 0.8em;
+	font-weight: bold;
+	text-align: right;
+}
+
+.nico2-google-calendar-add-link {
+	text-decoration: none;
+
+	&:hover {
+		cursor: pointer;
+	}
+}

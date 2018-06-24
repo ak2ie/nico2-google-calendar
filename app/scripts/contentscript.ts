@@ -2,12 +2,23 @@
 // import 'chromereload/devonly';
 import * as $ from 'jquery';
 import * as moment from 'moment';
+import * as toastr from 'toastr';
 
 const CALENDAR_BUTTON_ID = 'nico2-google-calendar';
 
-// Google Calendar追加ボタンを表示
+
+/*
+ * -----------------------------------------
+ *   Google Calendar追加ボタンを表示
+ * -----------------------------------------
+ */
 $('#bn_gbox .blbox_wrap .hmf')
     .append('<button id ="' + CALENDAR_BUTTON_ID + '">Google Calendarに追加</button>');
+
+// $('.item_action')
+//     .each((index, element) => {
+//         $(element).append('<br /><div class="nico2-google-calendar-add-block"><span class="nico2-google-calendar-icon"></span><a class="nico2-google-calendar-add-link">Google Calendar追加</a></div>');
+//     });
 
 let errorHandler = (message: string = 'エラーが発生しました') => {
     $('#' + CALENDAR_BUTTON_ID)
@@ -129,3 +140,52 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+/* ------------------------------------------------------
+ * 機能紹介
+ ------------------------------------------------------ */
+function notifyFeature() {
+    const message: {[key: string]: string} = {
+        '0.3.0': '予定を追加するカレンダーを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。'
+    };
+
+    toastr.options.closeButton = true;
+    toastr.options.positionClass = 'toast-bottom-right';
+    toastr.options.showDuration = 300;
+    toastr.options.hideDuration = 5000;
+    toastr.options.timeOut = 5000;
+    toastr.options.extendedTimeOut = 2000;
+    toastr.options.showEasing = 'swing';
+    toastr.options.hideEasing = 'linear';
+    toastr.options.showMethod = 'fadeIn';
+    toastr.options.hideMethod = 'fadeOut';
+
+    const manifest = chrome.runtime.getManifest();
+    if (message[manifest.version] !== undefined) {
+        toastr.info(message[manifest.version], 'nico2 google calendar');
+    }
+
+    // 拡張機能のオプションを開く設定
+    const openOptionLink = document.getElementById('open-option-page');
+    if (openOptionLink !== null) {
+        openOptionLink.addEventListener('click', () => {
+            chrome.runtime.sendMessage({action: 'openOptionPage'}, function(response) {
+            });
+        });
+    }
+}
+
+
+chrome.storage.sync.get('isFirstShow', (result) => {
+    const manifest = chrome.runtime.getManifest();
+    const currentVersion = manifest.version;
+
+    if (result !== undefined) {
+        if (!('isFirstShow' in result) || result['isFirstShow'][currentVersion] === true) {
+            notifyFeature();
+
+            // 機能紹介を表示済であることを記録
+            chrome.storage.sync.set({isFirstShow: {[currentVersion]: false}}, () => {});
+        }
+    }
+});

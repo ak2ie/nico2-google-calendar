@@ -3,10 +3,6 @@
 import { GoogleCalendar } from './GoogleCalendar';
 import * as moment from 'moment';
 
-chrome.runtime.onInstalled.addListener((details) => {
-  console.log('previousVersion', details.previousVersion);
-});
-
 const ERR_MSG_USER_DENIED = 'The user did not approve access.';
 
 /**
@@ -34,8 +30,10 @@ chrome.runtime.onMessage.addListener(
             return;
           }
 
+          const calendarID = await getCalendarID();
+
           const gcal = new GoogleCalendar(token);
-          await gcal.addSchedule(request.title, JSON.parse(request.start), JSON.parse(request.start), request.url);
+          await gcal.addSchedule(request.title, JSON.parse(request.start), JSON.parse(request.start), request.url, calendarID);
 
           if (sender.tab !== undefined && sender.tab.id !== undefined) {
             chrome.tabs.sendMessage(sender.tab.id, {
@@ -60,8 +58,9 @@ chrome.runtime.onMessage.addListener(
             console.error(chrome.runtime.lastError.message);
             return;
           }
+          const calendarID = await getCalendarID();
           const gcal = new GoogleCalendar(token);
-          const scheduleList = await gcal.getScheduleByDate(JSON.parse(request.dateTime));
+          const scheduleList = await gcal.getScheduleByDate(JSON.parse(request.dateTime), calendarID);
           let isRegistered = false;
           let startDateTime = moment(JSON.parse(request.dateTime));
 
@@ -82,8 +81,34 @@ chrome.runtime.onMessage.addListener(
           }
         });
         break;
+
+      case 'openOptionPage':
+        // 拡張機能のオプションを開く（Content Scriptから叩けなかった）
+        chrome.runtime.openOptionsPage(() => {});
+      break;
+
       default:
         break;
     }
   }
 );
+
+/**
+ * chrome.storageからカレンダーIDを取得する
+ * @return string カレンダーID
+ */
+const getCalendarID = (): Promise<string> => {
+  return new Promise<string>((resolve, reject) => {
+    let calendarID = '';
+
+    chrome.storage.sync.get('calendarID', async(value: string | any) => {
+      if (value.calendarID !== undefined) {
+        calendarID = value.calendarID;
+      } else {
+        calendarID = 'primary';
+      }
+
+      resolve(calendarID);
+    });
+  });
+};

@@ -1,0 +1,18 @@
+#calendar-list {
+    margin-left: 15px;
+    height: 200px;
+    overflow: auto;
+    scro
+
+    & input {
+        margin: 3px 0;
+    }
+}
+
+#status {
+    height: 30px;
+}
+
+#getCalendars {
+    display: none;
+}

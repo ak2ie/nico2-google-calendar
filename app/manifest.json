@@ -2,7 +2,7 @@
   "name": "__MSG_appName__",
   "short_name": "__MSG_appShortName__",
   "description": "__MSG_appDescription__",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "manifest_version": 2,
   "default_locale": "ja",
   "icons": {
@@ -11,7 +11,8 @@
   "background": {
     "scripts": [
       "scripts/background.js",
-      "scripts/GoogleCalendar.js"
+      "scripts/GoogleCalendar.js",
+      "scripts/Nico2.js"
     ],
     "persistent": false
   },
@@ -23,11 +24,12 @@
   "content_scripts": [
     {
       "matches": [
-        "http://localhost:2525/*",
-        "http://live.nicovideo.jp/gate/*"
+        "http://live.nicovideo.jp/gate/*",
+        "http://watch.live.nicovideo.jp/*"
       ],
       "css": [
-        "styles/contentscript.css"
+        "styles/contentscript.css",
+        "styles/toastr.min.css"
       ],
       "js": [
         "scripts/contentscript.js"

@@ -111,7 +111,12 @@
     } else {
         month = startTime.getMonth();
     }
-    var date = startTime.getDate();
+    var date;
+    if (startTime.getDate() < 10) {
+        date = '0' + startTime.getDate();
+    } else {
+        date = startTime.getDate();
+    }
     var yobi;
     switch (startTime.getDay()) {
         case 0:
