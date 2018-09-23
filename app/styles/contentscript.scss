@@ -1,24 +1,13 @@
-button#nico2-google-calendar {
-	display: inline-block;
-	width: 200px;
-	height: 54px;
-	text-align: center;
-	text-decoration: none;
-	line-height: 54px;
-	outline: none;
-	cursor: pointer;
-	margin-top: 10px;
-}
-button#nico2-google-calendar::before,
-button#nico2-google-calendar::after {
+button[id^=nico2-google-calendar-]::before,
+button[id^=nico2-google-calendar-]::after {
 	position: absolute;
 	z-index: -1;
 	display: block;
 	content: '';
 }
-button#nico2-google-calendar,
-button#nico2-google-calendar::before,
-button#nico2-google-calendar::after {
+button[id^=nico2-google-calendar-],
+button[id^=nico2-google-calendar-]::before,
+button[id^=nico2-google-calendar-]::after {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -26,37 +15,58 @@ button#nico2-google-calendar::after {
 	transition: all .3s;
 }
 
-button#nico2-google-calendar {
+button[id^=nico2-google-calendar-] {
 	position: relative;
 	background-color: #1abc9c;
-	border-radius: 4px;
 	color: #fff;
-	line-height: 30px;
+	line-height: 10px;
 	-webkit-transition: none;
 	transition: none;
 	box-shadow: 0 3px 0 #0e8c73;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 	border: 0;
+	cursor: pointer;
+	margin-top: 10px;
+}
+
+button#nico2-google-calendar-small {
+	border-radius: 20px;
+	width: 50px;
+	height: 23px;
+	background-image: url(chrome-extension://__MSG_@@extension_id__/images/calendar.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 0;
+}
+
+button#nico2-google-calendar-medium {
+	width: 200px;
+	height: 23px;
+	border-radius: 10px;
+}
+
+button#nico2-google-calendar-large {
+	border-radius: 5px;
 	width: 200px;
 	height: 30px;
 }
 
-button#nico2-google-calendar:enabled:hover {
+button[id^=nico2-google-calendar-]:enabled:hover {
     background-color: #31c8aa;
     box-shadow: 0 3px 0 #23a188;
 }
 
-button#nico2-google-calendar:active {
+button[id^=nico2-google-calendar-]:active {
 	top: 3px;
 	box-shadow: none;
 }
 
-button#nico2-google-calendar[class="nico2-google-calendar-error"]  {
+button[id^=nico2-google-calendar-][class$="-error"]  {
 	background-color: #e74c3c;
 	box-shadow: 0 3px 0 #c0392b;
 }
 
-button#nico2-google-calendar:disabled:hover  {
+button[id^=nico2-google-calendar-]:disabled:hover  {
 	cursor: not-allowed;
 }
 

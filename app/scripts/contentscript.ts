@@ -4,27 +4,43 @@ import * as $ from 'jquery';
 import * as moment from 'moment';
 import * as toastr from 'toastr';
 
-const CALENDAR_BUTTON_ID = 'nico2-google-calendar';
+const CALENDAR_BUTTON_ID_PREFIX = 'nico2-google-calendar';
 
 
 /*
  * -----------------------------------------
  *   Google Calendar追加ボタンを表示
- * -----------------------------------------
- */
-$('#bn_gbox .blbox_wrap .hmf')
-    .append('<button id ="' + CALENDAR_BUTTON_ID + '">Google Calendarに追加</button>');
+ * ----------------------------------------- */
+chrome.storage.sync.get('buttonSize', (value) => {
+    let buttonSize;
+    if (value.buttonSize !== undefined) {
+        buttonSize = value.buttonSize;
+    } else {
+        buttonSize = 'medium';
+    }
 
-// $('.item_action')
-//     .each((index, element) => {
-//         $(element).append('<br /><div class="nico2-google-calendar-add-block"><span class="nico2-google-calendar-icon"></span><a class="nico2-google-calendar-add-link">Google Calendar追加</a></div>');
-//     });
+    $('#bn_gbox .blbox_wrap .hmf')
+        .append('<button id="' + CALENDAR_BUTTON_ID_PREFIX + '-' + buttonSize + '">Google Calendarに追加</button>');
+});
 
 let errorHandler = (message: string = 'エラーが発生しました') => {
-    $('#' + CALENDAR_BUTTON_ID)
-        .text(message)
+    $('button[id^=' + CALENDAR_BUTTON_ID_PREFIX + ']')
         .addClass('nico2-google-calendar-error')
         .prop('disabled', true);
+
+        toastr.options.closeButton = true;
+        toastr.options.positionClass = 'toast-top-right';
+        toastr.options.showDuration = 300;
+        toastr.options.hideDuration = 5000;
+        toastr.options.timeOut = 5000;
+        toastr.options.extendedTimeOut = 2000;
+        toastr.options.showEasing = 'swing';
+        toastr.options.hideEasing = 'linear';
+        toastr.options.showMethod = 'fadeIn';
+        toastr.options.hideMethod = 'fadeOut';
+
+        const manifest = chrome.runtime.getManifest();
+        toastr.error(message, 'nico2 google calendar');
 };
 
 /**
@@ -86,7 +102,7 @@ let getScheduleProgramDate = (): void => {
 getScheduleProgramDate();
 
 $('#bn_gbox .blbox_wrap .hmf')
-    .on('click', '#' + CALENDAR_BUTTON_ID, function () {
+    .on('click', 'button[id^=' + CALENDAR_BUTTON_ID_PREFIX + ']', function () {
         const programInfo = getProgramInfo();
 
         // Backgroundスクリプト宛にGoogle Calendarへ追加するよう送信
@@ -108,13 +124,13 @@ chrome.runtime.onMessage.addListener(
 
                 if ('isError' in request) {
                     if (!request.isError) {
-                        $('#' + CALENDAR_BUTTON_ID).text('Google Calendar 追加済').prop('disabled', true);
+                        $('button[id^=' + CALENDAR_BUTTON_ID_PREFIX + ']').text('Google Calendar 追加済').prop('disabled', true);
                     } else {
                         let reason: string = '';
                         if (request.reason = 'USER_DENIED') {
                             reason = '許可して頂く必要があります';
                             setTimeout(() => {
-                                $('#' + CALENDAR_BUTTON_ID)
+                                $('button[id^=' + CALENDAR_BUTTON_ID_PREFIX + ']')
                                     .text('Google Calendarに追加')
                                     .removeClass('nico2-google-calendar-error')
                                     .prop('disabled', false);
@@ -129,10 +145,16 @@ chrome.runtime.onMessage.addListener(
                 console.log('スケジュールチェック結果：', request);
                 if ('isRegistered' in request) {
                     if (request.isRegistered) {
-                        $('#' + CALENDAR_BUTTON_ID).text('Google Calendar 追加済').prop('disabled', true);
+                        $('button[id^=' + CALENDAR_BUTTON_ID_PREFIX + ']').text('Google Calendar 追加済').prop('disabled', true);
                     }
                 }
                 break;
+
+            case 'changeButtonSize':
+                console.log('ボタンサイズ反映(', request.buttonSize + ')');
+                $('button[id^=' + CALENDAR_BUTTON_ID_PREFIX + ']')
+                    .attr('id', CALENDAR_BUTTON_ID_PREFIX + '-' + request.buttonSize);
+            break;
 
             default:
                 console.warn('対応外のメッセージ', request);
@@ -146,7 +168,8 @@ chrome.runtime.onMessage.addListener(
  ------------------------------------------------------ */
 function notifyFeature() {
     const message: {[key: string]: string} = {
-        '0.3.0': '予定を追加するカレンダーを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。'
+        '0.3.0': '予定を追加するカレンダーを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。',
+        '0.4.0': 'ボタンのサイズを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。'
     };
 
     toastr.options.closeButton = true;
