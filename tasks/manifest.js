@@ -22,6 +22,7 @@ gulp.task('manifest', () => {
     }))
     .pipe(gulpif(ENV === 'production', replace(CHROME_EXTENSION_CONFIG.key.dev, CHROME_EXTENSION_CONFIG.key.prod)))
     .pipe(gulpif(ENV === 'production', replace(CHROME_EXTENSION_CONFIG.client_id.dev, CHROME_EXTENSION_CONFIG.client_id.prod)))
+    .pipe(gulpif(ENV === 'production', replace(/"http:\/\/localhost:2525\/",/, '')))
     .pipe(
       jsonTransform(
         applyBrowserPrefixesFor(args.vendor),

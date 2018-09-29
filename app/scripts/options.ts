@@ -266,16 +266,16 @@ function changeButtonSize(size: string) {
     const manifest = chrome.runtime.getManifest();
     if (manifest.content_scripts !== undefined) {
         const targetUrls = manifest.content_scripts[0].matches;
-        if (targetUrls !== undefined) debug(targetUrls.length.toString());
+        // if (targetUrls !== undefined) debug(targetUrls.length.toString());
         chrome.tabs.query({
             url: targetUrls
         },
         (targetTabs) => {
-            if (targetTabs[0].id !== undefined) {
-                debug('send to ' + targetTabs[0].id);
-            } else {
-                debug('id is null');
-            }
+            // if (targetTabs[0].id !== undefined) {
+            //     debug('send to ' + targetTabs[0].id);
+            // } else {
+            //     debug('id is null');
+            // }
             for (let i = 0; i < targetTabs.length; i++) {
                 let tabID = targetTabs[i].id;
                 if (tabID !== undefined) {
