@@ -1,7 +1,7 @@
 {
   "name": "nico2-google-calendar",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "scripts": {
     "start": "npm run dev:chrome",
@@ -15,7 +15,8 @@
     "dev:firefox": "gulp --watch --vendor=firefox",
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
-    "lint": "standard"
+    "lint": "standard",
+    "test": "jest --watch"
   },
   "standard": {
     "globals": [
@@ -26,10 +27,12 @@
     "@types/axios": "^0.14.0",
     "@types/chrome": "^0.x.x",
     "@types/gapi": "0.0.35",
+    "@types/jest": "^23.3.2",
     "@types/jquery": "^3.3.1",
     "@types/moment": "^2.13.0",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
+    "axios-mock-adapter": "^1.15.0",
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
     "babel-loader": "7.x.x",
@@ -59,12 +62,16 @@
     "gulp-util": "3.x.x",
     "gulp-webserver": "^0.9.1",
     "gulp-zip": "^4.x.x",
+    "jest": "^23.6.0",
+    "jest-mock-axios": "^2.1.11",
+    "jquery-confirm": "^3.3.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "require-dir": "0.x.x",
     "standard": "^10.0.2",
     "string-replace-loader": "^2.1.1",
     "strip-loader": "^0.1.2",
+    "ts-jest": "^23.10.2",
     "ts-loader": "^2.x.x",
     "tslint": "^5.x.x",
     "vinyl-named": "1.x.x",
@@ -76,5 +83,24 @@
   "dependencies": {
     "axios": "^0.18.0",
     "moment": "^2.21.0"
+  },
+  "jest": {
+    "rootDir": "./",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
   }
 }
