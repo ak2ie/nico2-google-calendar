@@ -2,6 +2,7 @@
 // import 'chromereload/devonly';
 
 import { GoogleCalendar } from './GoogleCalendar';
+import Axios from 'axios';
 
 /**
  * カレンダーリスト表示
@@ -113,7 +114,7 @@ let displayErrorMessage = (message = '') => {
 let displayCalendars = async (token: string) => {
     const listbox = document.getElementById('calendar-list');
     if (listbox != null) {
-        const googleCalendar = new GoogleCalendar(token);
+        const googleCalendar = new GoogleCalendar(token, Axios);
         const list = await googleCalendar.getCalendarList();
 
         listbox.innerHTML = '';

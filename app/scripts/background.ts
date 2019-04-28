@@ -2,6 +2,8 @@
 // import 'chromereload/devonly';
 import { GoogleCalendar } from './GoogleCalendar';
 import * as moment from 'moment';
+import axios, { AxiosAdapter, AxiosStatic } from 'axios';
+import Axios from 'axios';
 
 const ERR_MSG_USER_DENIED = 'The user did not approve access.';
 
@@ -32,7 +34,7 @@ chrome.runtime.onMessage.addListener(
 
           const calendarID = await getCalendarID();
 
-          const gcal = new GoogleCalendar(token);
+          const gcal = new GoogleCalendar(token, axios);
           await gcal.addSchedule(request.title, JSON.parse(request.start), JSON.parse(request.start), request.url, calendarID);
 
           if (sender.tab !== undefined && sender.tab.id !== undefined) {
@@ -59,7 +61,7 @@ chrome.runtime.onMessage.addListener(
             return;
           }
           const calendarID = await getCalendarID();
-          const gcal = new GoogleCalendar(token);
+          const gcal = new GoogleCalendar(token, axios);
           const scheduleList = await gcal.getScheduleByDate(JSON.parse(request.dateTime), calendarID);
           let isRegistered = false;
           let startDateTime = moment(JSON.parse(request.dateTime));

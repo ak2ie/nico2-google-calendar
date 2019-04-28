@@ -1,8 +1,9 @@
 // Enable chromereload by uncommenting this line:
-// import 'chromereload/devonly';
+import 'chromereload/devonly';
 import * as $ from 'jquery';
 import * as moment from 'moment';
 import * as toastr from 'toastr';
+import * as jconfirm from 'jquery-confirm';
 
 const CALENDAR_BUTTON_ID_PREFIX = 'nico2-google-calendar';
 
@@ -42,6 +43,30 @@ let errorHandler = (message: string = 'エラーが発生しました') => {
         const manifest = chrome.runtime.getManifest();
         toastr.error(message, 'nico2 google calendar');
 };
+
+let displayGuide = () => {
+    const guideHTML = `
+    <dialog id="nico2-google-guide" open>
+        nico2 google calendarをご利用頂き、ありがとうございます。<br />
+        <br />
+        <h1>初回登録時のみ認証が必要です</h1>
+        クリックすると認証画面が開きますので、許可してください。<br />
+        <div id="nico2-google-guide-add-block">
+            <button id="nico2-google-guide-add-button">Google Calendarに追加<br />（認証画面が開きます）</button>
+        </div>
+        <h1>登録するカレンダーを変更できます</h1>
+        <p>
+            オプションページから設定してください。
+        </p>
+        <button id="nico2-google-guide-option-button">オプションを開く</button>
+    </dialog>`;
+
+    // $.alert({
+    //     title: '',
+    //     content: guideHTML
+    // });
+};
+// displayGuide();
 
 /**
  * 番組の情報を取得する
@@ -169,7 +194,8 @@ chrome.runtime.onMessage.addListener(
 function notifyFeature() {
     const message: {[key: string]: string} = {
         '0.3.0': '予定を追加するカレンダーを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。',
-        '0.4.0': 'ボタンのサイズを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。'
+        '0.4.0': 'ボタンのサイズを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。',
+        '0.4.2': 'ニコニコ生放送のHTTPS化に対応しました。'
     };
 
     toastr.options.closeButton = true;

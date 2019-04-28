@@ -1,22 +1,32 @@
-import axios from 'axios';
+import axios, { AxiosAdapter } from 'axios';
 import * as moment from 'moment';
 import { Nico2 } from './Nico2';
 
 export class GoogleCalendar {
     private token: string;
+    private axios: AxiosAdapter;
 
-    public constructor(token: string) {
+    public constructor(token: string, axios: AxiosAdapter) {
         this.token = token;
+        this.axios = axios;
     }
 
     private getToken(): string {
         return this.token;
     }
 
+    /**
+     * Google Calendarに予定を追加する
+     * @param title タイトル
+     * @param start 開始時刻
+     * @param end 終了時刻
+     * @param url 説明
+     * @param calendarID 予定を追加するカレンダー
+     */
     public async addSchedule(title: string, start: Date, end: Date, url: string, calendarID: string) {
         let startMoment = moment(start);
         let endMoment = moment(end);
-        const res = await axios({
+        const res = await this.axios({
             url: 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events',
             method: 'post',
             headers: {
@@ -42,7 +52,7 @@ export class GoogleCalendar {
 
     public async getScheduleByDate(date: Date, calendarID: string) {
         let dateMoment = moment(date);
-        const res = await axios({
+        const res = await this.axios({
             url: 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events',
             method: 'get',
             headers: {
@@ -61,7 +71,7 @@ export class GoogleCalendar {
     }
 
     public async getCalendarList() {
-        const res = await axios({
+        const res = await this.axios({
             url: 'https://www.googleapis.com/calendar/v3/users/me/calendarList',
             method: 'get',
             headers: {

@@ -1,54 +1,55 @@
 button[id^=nico2-google-calendar-]::before,
 button[id^=nico2-google-calendar-]::after {
-	position: absolute;
-	z-index: -1;
-	display: block;
-	content: '';
+    position: absolute;
+    z-index: -1;
+    display: block;
+    content: '';
 }
+
 button[id^=nico2-google-calendar-],
 button[id^=nico2-google-calendar-]::before,
 button[id^=nico2-google-calendar-]::after {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all .3s;
-	transition: all .3s;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
 }
 
 button[id^=nico2-google-calendar-] {
-	position: relative;
-	background-color: #1abc9c;
-	color: #fff;
-	line-height: 10px;
-	-webkit-transition: none;
-	transition: none;
-	box-shadow: 0 3px 0 #0e8c73;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
-	border: 0;
-	cursor: pointer;
-	margin-top: 10px;
+    position: relative;
+    background-color: #1abc9c;
+    color: #fff;
+    line-height: 10px;
+    -webkit-transition: none;
+    transition: none;
+    box-shadow: 0 3px 0 #0e8c73;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    border: 0;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 button#nico2-google-calendar-small {
-	border-radius: 20px;
-	width: 50px;
-	height: 23px;
-	background-image: url(chrome-extension://__MSG_@@extension_id__/images/calendar.png);
-	background-repeat: no-repeat;
-	background-position: center;
-	font-size: 0;
+    border-radius: 20px;
+    width: 50px;
+    height: 23px;
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/calendar.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 0;
 }
 
 button#nico2-google-calendar-medium {
-	width: 200px;
-	height: 23px;
-	border-radius: 10px;
+    width: 200px;
+    height: 23px;
+    border-radius: 10px;
 }
 
 button#nico2-google-calendar-large {
-	border-radius: 5px;
-	width: 200px;
-	height: 30px;
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
 }
 
 button[id^=nico2-google-calendar-]:enabled:hover {
@@ -57,39 +58,127 @@ button[id^=nico2-google-calendar-]:enabled:hover {
 }
 
 button[id^=nico2-google-calendar-]:active {
-	top: 3px;
-	box-shadow: none;
+    top: 3px;
+    box-shadow: none;
 }
 
-button[id^=nico2-google-calendar-][class$="-error"]  {
-	background-color: #e74c3c;
-	box-shadow: 0 3px 0 #c0392b;
+button[id^=nico2-google-calendar-][class$="-error"] {
+    background-color: #e74c3c;
+    box-shadow: 0 3px 0 #c0392b;
 }
 
-button[id^=nico2-google-calendar-]:disabled:hover  {
-	cursor: not-allowed;
+button[id^=nico2-google-calendar-]:disabled:hover {
+    cursor: not-allowed;
 }
 
 div.nico2-google-calendar-attentionbar {
-	position: fixed;
-	top: 36px;
-	left: 0px;
-	width: 100%;
-	height: 30px;
-	background-color: #FFF8E1;
+    position: fixed;
+    top: 36px;
+    left: 0px;
+    width: 100%;
+    height: 30px;
+    background-color: #FFF8E1;
 }
 
 .nico2-google-calendar-add-block {
-	padding-top: 10px;
-	font-size: 0.8em;
-	font-weight: bold;
-	text-align: right;
+    padding-top: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: right;
 }
 
 .nico2-google-calendar-add-link {
-	text-decoration: none;
+    text-decoration: none;
+    &:hover {
+        cursor: pointer;
+    }
+}
 
-	&:hover {
-		cursor: pointer;
-	}
+/* ----------------------------------------------
+ *  初回 説明ダイアログ
+   ---------------------------------------------- */
+dialog#nico2-google-guide {
+    border: gray 1px solid;
+    border-radius: 1rem;
+    box-shadow: 0 0 1em black;
+    text-align: left;
+    padding: 30px;
+    line-height: 1.4em;
+    font-size: 1.2em;
+    h1 {
+        color: #424242;
+        font-size: 1.4em;
+        padding-bottom: 10px;
+    }
+    div#nico2-google-guide-add-block {
+        height: 100px;
+    }
+    button[id^=nico2-google-guide-]::before,
+    button[id^=nico2-google-guide-]::after {
+        position: absolute;
+        z-index: -1;
+        display: block;
+        content: '';
+    }
+
+    button[id^=nico2-google-guide-],
+    button[id^=nico2-google-guide-]::before,
+    button[id^=nico2-google-guide-]::after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+
+    button[id^=nico2-google-guide-] {
+        position: relative;
+        
+        color: #fff;
+        line-height: 10px;
+        -webkit-transition: none;
+        transition: none;
+        
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+        border: 0;
+        cursor: pointer;
+        margin-top: 10px;
+        line-height: 1.4em;
+    }
+
+    
+    button#nico2-google-guide-add-button {
+        border-radius: 5px;
+        width: 200px;
+        height: 50px;
+        background-color: #2196F3;
+        box-shadow: 0 3px 0 #1565C0;
+
+        &:enabled:hover {
+                background-color: #42A5F5;
+                box-shadow: 0 3px 0 #1E88E5;
+        }
+
+        &:active {
+            top: 3px;
+            box-shadow: none;
+        }
+    }
+    button#nico2-google-guide-option-button {
+        border-radius: 5px;
+        width: 200px;
+        height: 30px;
+        background-color: #4DD0E1;
+        box-shadow: 0 3px 0 #0097A7;
+
+        &:enabled:hover {
+                background-color: #80DEEA;
+                box-shadow: 0 3px 0 #26C6DA;
+        }
+
+        &:active {
+            top: 3px;
+            box-shadow: none;
+        }
+    }
 }
