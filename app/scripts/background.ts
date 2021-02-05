@@ -15,37 +15,55 @@ chrome.runtime.onMessage.addListener(
     switch (request.action) {
       case 'addCalendar':
         console.log('カレンダーに追加');
-        chrome.identity.getAuthToken({ interactive: true }, async function (token) {
-          if (chrome.runtime.lastError) {
-            if (sender.tab !== undefined && sender.tab.id !== undefined) {
-              let callbackMsg = {
-                action: 'addCalendarResponse',
-                isError: true,
-                reason: ''
-              };
-              if (chrome.runtime.lastError.message === ERR_MSG_USER_DENIED) {
-                callbackMsg['reason'] = 'USER_DENIED';
+
+        chrome.identity.getAuthToken({ interactive: false }, async function (token) {
+          if (!(request.option !== undefined && request.option === 'beforeAuth')) {
+            if (chrome.runtime.lastError) {
+              if (sender.tab !== undefined && sender.tab.id !== undefined) {
+                let callbackMsg = {
+                  action: 'addCalendarResponse',
+                  isError: true,
+                  reason: 'NOT_AUTHORIZED'
+                };
+
+                // 未認証の場合はダイアログを表示するため、一旦エラーを返して処理を終了する。
+                chrome.tabs.sendMessage(sender.tab.id, callbackMsg);
+                return;
               }
-              chrome.tabs.sendMessage(sender.tab.id, callbackMsg);
             }
-            console.error(chrome.runtime.lastError.message);
-            return;
           }
 
-          const calendarID = await getCalendarID();
+          chrome.identity.getAuthToken({ interactive: true }, async function (token) {
+            if (chrome.runtime.lastError) {
+              if (sender.tab !== undefined && sender.tab.id !== undefined) {
+                let callbackMsg = {
+                  action: 'addCalendarResponse',
+                  isError: true,
+                  reason: ''
+                };
+                if (chrome.runtime.lastError.message === ERR_MSG_USER_DENIED) {
+                  callbackMsg['reason'] = 'USER_DENIED';
+                }
+                chrome.tabs.sendMessage(sender.tab.id, callbackMsg);
+              }
+              console.error(chrome.runtime.lastError.message);
+              return;
+            }
 
-          const gcal = new GoogleCalendar(token, axios);
-          await gcal.addSchedule(request.title, JSON.parse(request.start), JSON.parse(request.start), request.url, calendarID);
+            const calendarID = await getCalendarID();
 
-          if (sender.tab !== undefined && sender.tab.id !== undefined) {
-            chrome.tabs.sendMessage(sender.tab.id, {
-              action: 'addCalendarResponse',
-              isError: false
-            });
-            console.log('response');
-          }
+            const gcal = new GoogleCalendar(token, axios);
+            await gcal.addSchedule(request.title, JSON.parse(request.start), JSON.parse(request.start), request.url, calendarID);
+
+            if (sender.tab !== undefined && sender.tab.id !== undefined) {
+              chrome.tabs.sendMessage(sender.tab.id, {
+                action: 'addCalendarResponse',
+                isError: false
+              });
+              console.log('response');
+            }
+          });
         });
-
         break;
 
       case 'getSchedule':

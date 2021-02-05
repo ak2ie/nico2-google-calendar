@@ -32,6 +32,7 @@
     "@types/moment": "^2.13.0",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
+    "@types/toastr": "^2.1.38",
     "axios-mock-adapter": "^1.15.0",
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
@@ -64,6 +65,7 @@
     "gulp-zip": "^4.x.x",
     "jest": "^23.6.0",
     "jest-mock-axios": "^2.1.11",
+    "jest-webextension-mock": "^3.5.0",
     "jquery-confirm": "^3.3.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -83,7 +85,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "moment": "^2.21.0",
-    "sweetalert2": "^8.8.7"
+    "sweetalert2": "^8.8.7",
+    "toastr": "^2.1.4"
   },
   "jest": {
     "rootDir": "./",
@@ -102,6 +105,9 @@
       "ts",
       "js",
       "json"
+    ],
+    "setupFiles": [
+      "jest-webextension-mock"
     ]
   }
 }

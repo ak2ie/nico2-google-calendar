@@ -6,103 +6,102 @@ $setting_area_left_paddig: 15px;
  * -------------------------------- */
 // カレンダーリスト
 #calendar-list {
-    margin-left: $setting_area_left_paddig;
-    height: 200px;
-    overflow: auto;
+  margin-left: $setting_area_left_paddig;
+  height: 200px;
+  overflow: auto;
 
-    & input {
-        margin: 3px 0;
-    }
+  & input {
+    margin: 3px 0;
+  }
 }
 
 // 保存結果
 #status {
-    height: 30px;
+  height: 30px;
 }
 
 // カレンダーリスト取得
 #getCalendars {
-    display: none;
+  display: none;
 }
 
 /* --------------------------------
  *  ボタンサイズ
  * -------------------------------- */
 .radio-box {
-	border: #BDBDBD solid 2px;
-	border-radius: 5px;
-	width: 300px;
-    padding: 5px 5px $setting_area_left_paddig;
-    text-align: center;
-    margin: -40px 0 30px 30px;
+  border: #bdbdbd solid 2px;
+  border-radius: 5px;
+  width: 300px;
+  padding: 5px 5px $setting_area_left_paddig;
+  text-align: center;
+  margin: -40px 0 30px 30px;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 
-    // 選択したときにボタンに外枠がつかないようにする
-    & button {
-        outline: 0;
-    }
+  // 選択したときにボタンに外枠がつかないようにする
+  & button {
+    outline: 0;
+  }
 }
 
 // 選択した項目の外枠
-input[type=radio]:checked + label div.radio-box {
-    border-color: #009688;
+input[type="radio"]:checked + label div.radio-box {
+  border-color: #009688;
 }
 
 input.button-size-radio {
-    display: inline;
+  display: inline;
 }
 
 #sample-buttons {
-    padding-top: 20px;
-    margin-left: 10px;
+  padding-top: 20px;
+  margin-left: 10px;
 }
 
 // ボタン hover, clickエフェクト無効化
-button[id^=nico2-google-calendar] {
-    &:active {
-        top: 0px;
-    }
+button[id^="nico2-google-calendar"] {
+  &:active {
+    top: 0px;
+  }
 
-    &:enabled:hover {
-        background-color: #1abc9c;
-        box-shadow: 0 3px 0 #0e8c73;
-    }
+  &:enabled:hover {
+    background-color: #1abc9c;
+  }
 }
 
 /* --------------------------------
  *  保存
  * -------------------------------- */
 #save {
-    border: gray solid 1px;
-    border-radius: 15px;
-    width: 100px;
-    background-color: white;
-    border-bottom: solid 4px gray;
-    outline: none;
-    
+  border: gray solid 1px;
+  border-radius: 15px;
+  width: 100px;
+  background-color: white;
+  border-bottom: solid 4px gray;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    color: #a7a7a7;
+
     &:hover {
-        cursor: pointer;
+      cursor: not-allowed;
     }
+  }
 
-    &:disabled {
-        color: #a7a7a7;
-        
-        &:hover  {
-            cursor: not-allowed;
-        }
-    }
-
-    &:active {
-        margin-top: 1px;
-        border-bottom: solid 2px gray;
-        transform: translateY(2px);
-    }
+  &:active {
+    margin-top: 1px;
+    border-bottom: solid 2px gray;
+    transform: translateY(2px);
+  }
 }
 
 .save-button-box {
-    text-align: center;
-    margin-bottom: 10px;
+  text-align: center;
+  margin-bottom: 10px;
 }

@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Options</title>
+    <link rel="stylesheet" type="text/css" href="../styles/contentscript.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/options.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>Options</title>
-  <link rel="stylesheet" type="text/css" href="../styles/contentscript.css">
-  <link rel="stylesheet" type="text/css" href="../styles/options.css">
-</head>
-
-<body>
-  <h3>ボタンサイズ</h3>
-  <div id="sample-buttons">
-    <input type="radio" name="button-size" value="small" id="button-size-small" class="button-size-radio">
-    <label for="button-size-small">
-      <div class="radio-box">
-        <button id="nico2-google-calendar-small"></button>
-      </div>
-    </label>
-    <input type="radio" name="button-size" value="medium" id="button-size-medium" class="button-size-radio">
-    <label for="button-size-medium">
-      <div class="radio-box">
-        <button id="nico2-google-calendar-medium">Google Calendarに追加</button>
-      </div>
-    </label>
-    <input type="radio" name="button-size" value="large" id="button-size-large" class="button-size-radio">
-    <label for="button-size-large">
-      <div class="radio-box">
-        <button id="nico2-google-calendar-large">Google Calendarに追加</button>
-      </div>
-    </label>
-  </div>
-  <h3>予定を追加するカレンダー</h3>
-  <div id="calendar-list">
-    一覧取得中...
-  </div>
-  <button id="getCalendars">カレンダー一覧を取得する</button>
-  <div class="save-button-box">
-    <button id="save" disabled="disabled">保存</button>
-  </div>
-  <!-- 保存結果表示エリア -->
-  <div id="status"></div>
-  <script src="../scripts/options.js"></script>
-</body>
-
+  <body>
+    <h3>ボタンサイズ</h3>
+    <div id="sample-buttons">
+      <input
+        type="radio"
+        name="button-size"
+        value="small"
+        id="button-size-small"
+        class="button-size-radio"
+      />
+      <label for="button-size-small">
+        <div class="radio-box">
+          <button
+            id="nico2-google-calendar-small"
+            class="unregistered"
+          ></button>
+        </div>
+      </label>
+      <input
+        type="radio"
+        name="button-size"
+        value="large"
+        id="button-size-large"
+        class="button-size-radio"
+      />
+      <label for="button-size-large">
+        <div class="radio-box">
+          <button id="nico2-google-calendar-large">
+            Google Calendarに追加
+          </button>
+        </div>
+      </label>
+    </div>
+    <h3>予定を追加するカレンダー</h3>
+    <div id="calendar-list">一覧取得中...</div>
+    <button id="getCalendars">カレンダー一覧を取得する</button>
+    <div class="save-button-box">
+      <button id="save" disabled="disabled">保存</button>
+    </div>
+    <!-- 保存結果表示エリア -->
+    <div id="status"></div>
+    <script src="../scripts/options.js"></script>
+  </body>
 </html>
