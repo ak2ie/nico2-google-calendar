@@ -232,15 +232,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               buttonSize = "medium";
             }
 
-            if (buttonSize === "large") {
-              $("button[id^=" + CALENDAR_BUTTON_ID_PREFIX + "]")
-                .text("Google Calendar 追加済")
-                .prop("disabled", true);
-            } else if (buttonSize === "small") {
+            if (buttonSize === "small") {
               $("button[id^=" + CALENDAR_BUTTON_ID_PREFIX + "]").attr(
                 "class",
                 "registered"
               );
+            } else {
+              $("button[id^=" + CALENDAR_BUTTON_ID_PREFIX + "]")
+                .text("Google Calendar 追加済")
+                .prop("disabled", true);
             }
           });
         } else if (request.reason === "NOT_AUTHORIZED") {
