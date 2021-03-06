@@ -1,6 +1,5 @@
 import axios, { AxiosAdapter } from 'axios';
 import * as moment from 'moment';
-import { Nico2 } from './Nico2';
 
 export class GoogleCalendar {
     private token: string;

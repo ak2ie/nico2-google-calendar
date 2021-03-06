@@ -1,6 +1,6 @@
 import { GoogleCalendar } from '../app/scripts/GoogleCalendar';
 import axios from 'axios';
-import { MockAdapter } from 'axios-mock-adapter';
+import MockAdapter from "../node_modules/axios-mock-adapter/types";
 
 describe('スケジュール追加', () => {
     it('test1-1', () => {

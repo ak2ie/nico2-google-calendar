@@ -2,8 +2,7 @@
 // import 'chromereload/devonly';
 import { GoogleCalendar } from './GoogleCalendar';
 import * as moment from 'moment';
-import axios, { AxiosAdapter, AxiosStatic } from 'axios';
-import Axios from 'axios';
+import axios from 'axios';
 
 const ERR_MSG_USER_DENIED = 'The user did not approve access.';
 
@@ -104,8 +103,8 @@ chrome.runtime.onMessage.addListener(
 
       case 'openOptionPage':
         // 拡張機能のオプションを開く（Content Scriptから叩けなかった）
-        chrome.runtime.openOptionsPage(() => {});
-      break;
+        chrome.runtime.openOptionsPage(() => { });
+        break;
 
       default:
         break;
@@ -121,7 +120,7 @@ const getCalendarID = (): Promise<string> => {
   return new Promise<string>((resolve, reject) => {
     let calendarID = '';
 
-    chrome.storage.sync.get('calendarID', async(value: string | any) => {
+    chrome.storage.sync.get('calendarID', async (value: string | any) => {
       if (value.calendarID !== undefined) {
         calendarID = value.calendarID;
       } else {

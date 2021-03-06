@@ -3,7 +3,6 @@
 import * as $ from "jquery";
 import * as moment from "moment";
 import * as toastr from "toastr";
-import * as jconfirm from "jquery-confirm";
 import * as Swal from "sweetalert2";
 const CALENDAR_BUTTON_ID_PREFIX = "nico2-google-calendar";
 
