@@ -1,4 +1,4 @@
-import axios, { AxiosAdapter } from 'axios';
+import { AxiosAdapter } from 'axios';
 import * as moment from 'moment';
 
 export class GoogleCalendar {

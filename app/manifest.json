@@ -3,14 +3,13 @@
   "short_name": "__MSG_appShortName__",
   "description": "__MSG_appDescription__",
   "version": "0.5.1",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "default_locale": "ja",
   "icons": {
     "128": "images/icon128.png"
   },
   "background": {
-    "scripts": ["scripts/background.js", "scripts/GoogleCalendar.js"],
-    "persistent": false
+    "service_worker": "serviceworker.js"
   },
   "options_page": "pages/options.html",
   "options_ui": {
@@ -32,14 +31,19 @@
     }
   ],
   "web_accessible_resources": [
-    "images/calendar.png",
-    "images/calendar_registered.png"
+    {
+      "resources": ["images/calendar.png", "images/calendar_registered.png"],
+      "matches": [],
+      "extension_ids": []
+    }
   ],
   "oauth2": {
     "client_id": "73888334620-lgmhp1ljfiii3h92320n8udpgh5e851k.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/calendar"]
   },
   "permissions": ["identity", "storage", "tabs"],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuAaYvFGUT1CyR1W7pWErbfnctq62H5q4NYIIKvhH+i2q30P5f+4N49BrY9r0JVk8BXSMxKGn+GsP9qlil+q8hVti/Gwg1DBiLNrKbllggAgG4ZtCMzMXy55bwe94iCTmAHoeZNDpnYbr2UYLdcimSxopCvHAREBmgel0AuXr7w8PzbS8+G+eUy7mBIWSVzOcr3t7H6E/T59B8uirfzyXpc9h0zP++rK8vCk0oayFlo51BF6lx013Let6gtdG6Ibgrv2M3KRApeLBA8xqQnMG0D4hIrfr0G4st3Kj7ImtmOkJ1QvnAeLBgVXOvOYrN8ww/V4m6CU/e68yLRBMlMSZNQIDAQAB"
 }
