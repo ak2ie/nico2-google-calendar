@@ -1,5 +1,5 @@
 // Enable chromereload by uncommenting this line:
-// import 'chromereload/devonly';
+import 'chromereload/devonly';
 
 import { GoogleCalendar } from './GoogleCalendar';
 import Axios from 'axios';
@@ -114,7 +114,7 @@ let displayErrorMessage = (message = '') => {
 let displayCalendars = async (token: string) => {
     const listbox = document.getElementById('calendar-list');
     if (listbox != null) {
-        const googleCalendar = new GoogleCalendar(token, Axios);
+        const googleCalendar = new GoogleCalendar(token/*, Axios*/);
         const list = await googleCalendar.getCalendarList();
 
         listbox.innerHTML = '';
@@ -256,7 +256,7 @@ for (let i = 0; i < calendar_button_outers.length; i++) {
 function loadButtonSize() {
     chrome.storage.sync.get('buttonSize', (value) => {
         if (value.buttonSize !== undefined) {
-            const element = <HTMLInputElement> document.getElementById('button-size-' + value.buttonSize);
+            const element = <HTMLInputElement>document.getElementById('button-size-' + value.buttonSize);
             element.checked = true;
         }
     });
@@ -271,22 +271,22 @@ function changeButtonSize(size: string) {
         chrome.tabs.query({
             url: targetUrls
         },
-        (targetTabs) => {
-            // if (targetTabs[0].id !== undefined) {
-            //     debug('send to ' + targetTabs[0].id);
-            // } else {
-            //     debug('id is null');
-            // }
-            for (let i = 0; i < targetTabs.length; i++) {
-                let tabID = targetTabs[i].id;
-                if (tabID !== undefined) {
-                    chrome.tabs.sendMessage(tabID, {
-                        action: 'changeButtonSize',
-                        buttonSize: size
-                    });
+            (targetTabs) => {
+                // if (targetTabs[0].id !== undefined) {
+                //     debug('send to ' + targetTabs[0].id);
+                // } else {
+                //     debug('id is null');
+                // }
+                for (let i = 0; i < targetTabs.length; i++) {
+                    let tabID = targetTabs[i].id;
+                    if (tabID !== undefined) {
+                        chrome.tabs.sendMessage(tabID, {
+                            action: 'changeButtonSize',
+                            buttonSize: size
+                        });
+                    }
                 }
-            }
-        });
+            });
     }
 }
 

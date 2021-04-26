@@ -3,11 +3,9 @@ import * as moment from 'moment';
 
 export class GoogleCalendar {
     private token: string;
-    private axios: AxiosAdapter;
 
-    public constructor(token: string, axios: AxiosAdapter) {
+    public constructor(token: string) {
         this.token = token;
-        this.axios = axios;
     }
 
     private getToken(): string {
@@ -25,60 +23,77 @@ export class GoogleCalendar {
     public async addSchedule(title: string, start: Date, end: Date, url: string, calendarID: string) {
         let startMoment = moment(start);
         let endMoment = moment(end);
-        const res = await this.axios({
-            url: 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events',
-            method: 'post',
-            headers: {
-                'Authorization': 'Bearer ' + this.getToken(),
-                'Content-Type': 'application/json'      // これがないと400エラーになる
-            },
-            data: {
-                'summary': title,
-                'start': {
-                    'dateTime': startMoment.format('YYYY-MM-DDTHH:mm:ss+09:00'),
-                    'timeZone': 'Asia/Tokyo'
+
+        const res = await fetch(
+            `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events`,
+            {
+                method: "POST",
+                headers: {
+                    'Authorization': 'Bearer ' + this.getToken(),
+                    'Content-Type': 'application/json'
                 },
-                'end': {
-                    'dateTime': endMoment.format('YYYY-MM-DDTHH:mm:ss+09:00'),
-                    'timeZone': 'Asia/Tokyo'
-                },
-                description: url
+                body: JSON.stringify({
+                    'summary': title,
+                    'start': {
+                        'dateTime': startMoment.format('YYYY-MM-DDTHH:mm:ss+09:00'),
+                        'timeZone': 'Asia/Tokyo'
+                    },
+                    'end': {
+                        'dateTime': endMoment.format('YYYY-MM-DDTHH:mm:ss+09:00'),
+                        'timeZone': 'Asia/Tokyo'
+                    },
+                    description: url
+                })
             }
-        });
+        );
 
         console.log(res.status);
     }
 
+    /**
+     * 対象カレンダーID内の対象日付の予定を取得する
+     * @param date 検索対象日付
+     * @param calendarID 検索対象カレンダーID
+     * @returns 予定
+     */
     public async getScheduleByDate(date: Date, calendarID: string) {
         let dateMoment = moment(date);
-        const res = await this.axios({
-            url: 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID + '/events',
-            method: 'get',
-            headers: {
-                'Authorization': 'Bearer ' + this.getToken(),
-                'Content-Type': 'application/json'      // これがないと400エラーになる
-            },
-            params: {
-                timeMin: dateMoment.format('YYYY-MM-DD') + 'T00:00:00+09:00',
-                timeMax: dateMoment.format('YYYY-MM-DD') + 'T23:59:59+09:00'
+        const params = {
+            timeMin: dateMoment.format('YYYY-MM-DD') + 'T00:00:00+09:00',
+            timeMax: dateMoment.format('YYYY-MM-DD') + 'T23:59:59+09:00'
+        };
+        const query = new URLSearchParams(params);
+
+        const res = await (await fetch(
+            `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events?${query}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + this.getToken(),
+                    'Content-Type': 'application/json'      // これがないと400エラーになる
+                }
             }
-        });
+        )).json();
 
-        console.log(res.data);
-
-        return res.data.items;
+        return res.items;
     }
 
+    /**
+     * カレンダー一覧を取得する
+     * @returns カレンダー一覧
+     */
     public async getCalendarList() {
-        const res = await this.axios({
-            url: 'https://www.googleapis.com/calendar/v3/users/me/calendarList',
-            method: 'get',
-            headers: {
-                'Authorization': 'Bearer ' + this.getToken(),
-                'Content-Type': 'application/json'      // これがないと400エラーになる
+        const res = await (await fetch(
+            'https://www.googleapis.com/calendar/v3/users/me/calendarList',
+            {
+                method: 'get',
+                headers: {
+                    'Authorization': 'Bearer ' + this.getToken(),
+                    'Content-Type': 'application/json'      // これがないと400エラーになる
+                }
             }
-        });
+        )).json();
 
-        return res.data.items;
+        return res.items;
     }
 }

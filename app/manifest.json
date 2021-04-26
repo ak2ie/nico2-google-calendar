@@ -33,7 +33,12 @@
   "web_accessible_resources": [
     {
       "resources": ["images/calendar.png", "images/calendar_registered.png"],
-      "matches": [],
+      "matches": [
+        "http://localhost:2525/*",
+        "https://live.nicovideo.jp/*",
+        "https://watch.live.nicovideo.jp/*",
+        "https://live2.nicovideo.jp/*"
+      ],
       "extension_ids": []
     }
   ],

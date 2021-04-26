@@ -1,5 +1,5 @@
 // Enable chromereload by uncommenting this line:
-// import 'chromereload/devonly';
+import 'chromereload/devonly';
 import * as $ from "jquery";
 import * as moment from "moment";
 import * as toastr from "toastr";
@@ -187,10 +187,8 @@ let getScheduleProgramDate = (): void => {
       action: "getSchedule",
       title: programInfo.title,
       dateTime: JSON.stringify(new Date(programInfo.start)), // Dateオブジェクトはそのまま送信できない
-    },
-    (response) => {
-      // BackGroundでは非同期で処理するため、CallbackはaddListenerで対応
     }
+    // BackGroundでは非同期で処理するため、CallbackはaddListenerで対応
   );
 };
 getScheduleProgramDate();
@@ -208,10 +206,8 @@ $("body").on(
         title: programInfo.title,
         start: JSON.stringify(programInfo.start), // Dateオブジェクトはそのまま送信できない
         url: location.href,
-      },
-      (response) => {
-        // BackGroundでは非同期で処理するため、CallbackはaddListenerで対応
       }
+      // BackGroundでは非同期で処理するため、CallbackはaddListenerで対応
     );
   }
 );
@@ -363,3 +359,5 @@ chrome.storage.sync.get("isFirstShow", (result) => {
 export function test() {
   $("#test").text("Hello2");
 }
+
+console.log("nico2goole ロード確認");

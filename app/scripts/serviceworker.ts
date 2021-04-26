@@ -1,8 +1,8 @@
 // Enable chromereload by uncommenting this line:
-// import 'chromereload/devonly';
+import 'chromereload/devonly';
 import { GoogleCalendar } from './GoogleCalendar';
 import * as moment from 'moment';
-import axios from 'axios';
+import * as axios from 'axios';
 
 const ERR_MSG_USER_DENIED = 'The user did not approve access.';
 
@@ -49,9 +49,9 @@ chrome.runtime.onMessage.addListener(
               return;
             }
 
+            console.log("予定追加");
             const calendarID = await getCalendarID();
-
-            const gcal = new GoogleCalendar(token, axios);
+            const gcal = new GoogleCalendar(token);
             await gcal.addSchedule(request.title, JSON.parse(request.start), JSON.parse(request.start), request.url, calendarID);
 
             if (sender.tab !== undefined && sender.tab.id !== undefined) {
@@ -78,7 +78,7 @@ chrome.runtime.onMessage.addListener(
             return;
           }
           const calendarID = await getCalendarID();
-          const gcal = new GoogleCalendar(token, axios);
+          const gcal = new GoogleCalendar(token);
           const scheduleList = await gcal.getScheduleByDate(JSON.parse(request.dateTime), calendarID);
           let isRegistered = false;
           let startDateTime = moment(JSON.parse(request.dateTime));
@@ -96,7 +96,7 @@ chrome.runtime.onMessage.addListener(
               isError: false,
               isRegistered: isRegistered
             });
-            console.log('response');
+            console.log(`isRegistered = ${isRegistered}`);
           }
         });
         break;

@@ -68,6 +68,7 @@
     "jest-mock-axios": "^2.1.11",
     "jest-webextension-mock": "^3.5.0",
     "jquery-confirm": "^3.3.2",
+    "ky": "^0.27.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "require-dir": "0.x.x",
