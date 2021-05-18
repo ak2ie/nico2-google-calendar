@@ -2,7 +2,7 @@
   "name": "__MSG_appName__",
   "short_name": "__MSG_appShortName__",
   "description": "__MSG_appDescription__",
-  "version": "0.5.1",
+  "version": "0.5.5",
   "manifest_version": 2,
   "default_locale": "ja",
   "icons": {
@@ -21,9 +21,10 @@
     {
       "matches": [
         "http://localhost:2525/",
+        "https://live.nicovideo.jp/watch/*",
         "https://live.nicovideo.jp/gate/*",
         "https://watch.live.nicovideo.jp/*",
-        "https://live2.nicovideo.jp/*"
+        "https://live2.nicovideo.jp/watch/*"
       ],
       "css": ["styles/contentscript.css", "styles/toastr.min.css"],
       "js": ["scripts/contentscript.js"],

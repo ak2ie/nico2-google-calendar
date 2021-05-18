@@ -136,7 +136,7 @@ let displayGuide = () => {
  * 番組の情報を取得する
  */
 let getProgramInfo = (): { title: string; start: Date } => {
-  let programTitle = $(".___title___2vJQN span").text();
+  let programTitle = $(".___program-title___zV26A span").text();
   let dateStartStr = $(".___onair-time___xWLfr").text().trim();
   // 番組開始日時を取得する正規表現
   const dateStartRegexp = /([0-9]{4}\/[0-9]{2}\/[0-9]{2})\([月火水木金土日]\).*([0-9]{2}):([0-9]{2})開始/;
