@@ -18,7 +18,7 @@ const DisplayButton = (buttonSize: string, isRegistered: boolean) => {
   $("#" + CALENDAR_BUTTON_ID_PREFIX + "-box").hide();
   switch (buttonSize) {
     case "large":
-      $(".___watch-navigation-area___1RwlE").append('<div id="' +
+      $("[class^='___watch-navigation-area']").append('<div id="' +
         CALENDAR_BUTTON_ID_PREFIX +
         '-box"><button id="' +
         CALENDAR_BUTTON_ID_PREFIX +
@@ -36,7 +36,7 @@ const DisplayButton = (buttonSize: string, isRegistered: boolean) => {
       break;
 
     case "small":
-      $(".___menu-dock___3_ass")
+      $("[class^='___menu-dock']")
         .children("li")
         .last()
         // .children("li:first")
@@ -136,8 +136,8 @@ let displayGuide = () => {
  * 番組の情報を取得する
  */
 let getProgramInfo = (): { title: string; start: Date } => {
-  let programTitle = $(".___program-title___zV26A span").text();
-  let dateStartStr = $(".___onair-time___xWLfr").text().trim();
+  let programTitle = $("[class^='___program-title']").children("span").text();
+  let dateStartStr = $("[class^='___onair-time']").text().trim();
   // 番組開始日時を取得する正規表現
   const dateStartRegexp = /([0-9]{4}\/[0-9]{2}\/[0-9]{2})\([月火水木金土日]\).*([0-9]{2}):([0-9]{2})開始/;
   let match;
