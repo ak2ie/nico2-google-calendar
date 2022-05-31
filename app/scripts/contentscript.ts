@@ -18,13 +18,14 @@ const DisplayButton = (buttonSize: string, isRegistered: boolean) => {
   $("#" + CALENDAR_BUTTON_ID_PREFIX + "-box").hide();
   switch (buttonSize) {
     case "large":
-      $("[class^='___watch-navigation-area']").append('<div id="' +
-        CALENDAR_BUTTON_ID_PREFIX +
-        '-box"><button id="' +
-        CALENDAR_BUTTON_ID_PREFIX +
-        "-" +
-        buttonSize +
-        '">Google Calendarに追加</button></div>'
+      $("[class^='___watch-navigation-area']").append(
+        '<div id="' +
+          CALENDAR_BUTTON_ID_PREFIX +
+          '-box"><button id="' +
+          CALENDAR_BUTTON_ID_PREFIX +
+          "-" +
+          buttonSize +
+          '">Google Calendarに追加</button></div>'
       );
 
       if (isRegistered) {
@@ -139,7 +140,8 @@ let getProgramInfo = (): { title: string; start: Date } => {
   let programTitle = $("[class^='___program-title']").children("span").text();
   let dateStartStr = $("[class^='___onair-time']").text().trim();
   // 番組開始日時を取得する正規表現
-  const dateStartRegexp = /([0-9]{4}\/[0-9]{2}\/[0-9]{2})\([月火水木金土日]\).*([0-9]{2}):([0-9]{2})開始/;
+  const dateStartRegexp =
+    /([0-9]{4}\/[0-9]{1,2}\/[0-9]{1,2})\([月火水木金土日]\)\s*([0-9]{1,2}):([0-9]{1,2})開始/;
   let match;
 
   match = dateStartRegexp.exec(dateStartStr);
@@ -270,11 +272,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               .text("Google Calendar 追加済")
               .prop("disabled", true);
           } else if ($(`button#${CALENDAR_BUTTON_ID_PREFIX}-small`).length) {
-            $(`button#${CALENDAR_BUTTON_ID_PREFIX}-small`)
-              .attr(
-                "class",
-                "registered"
-              );
+            $(`button#${CALENDAR_BUTTON_ID_PREFIX}-small`).attr(
+              "class",
+              "registered"
+            );
           }
         }
       }
@@ -310,7 +311,7 @@ function notifyFeature() {
       'ボタンのサイズを選べるようになりました。詳しくは<a id="open-option-page" style="text-decoration: underline;">設定ページ</a>をご覧ください。',
     "0.4.2": "ニコニコ生放送のHTTPS化に対応しました。",
     "0.4.3": "視聴ページのデザイン変更に暫定対応しました。",
-    "0.5.0": "視聴ページのデザイン変更に完全対応しました。"
+    "0.5.0": "視聴ページのデザイン変更に完全対応しました。",
   };
 
   toastr.options.closeButton = true;
@@ -333,9 +334,10 @@ function notifyFeature() {
   const openOptionLink = document.getElementById("open-option-page");
   if (openOptionLink !== null) {
     openOptionLink.addEventListener("click", () => {
-      chrome.runtime.sendMessage({ action: "openOptionPage" }, function (
-        response
-      ) { });
+      chrome.runtime.sendMessage(
+        { action: "openOptionPage" },
+        function (response) {}
+      );
     });
   }
 }
@@ -354,7 +356,7 @@ chrome.storage.sync.get("isFirstShow", (result) => {
       // 機能紹介を表示済であることを記録
       chrome.storage.sync.set(
         { isFirstShow: { [currentVersion]: false } },
-        () => { }
+        () => {}
       );
     }
   }
