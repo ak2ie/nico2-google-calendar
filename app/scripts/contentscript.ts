@@ -312,6 +312,7 @@ function notifyFeature() {
     "0.4.2": "ニコニコ生放送のHTTPS化に対応しました。",
     "0.4.3": "視聴ページのデザイン変更に暫定対応しました。",
     "0.5.0": "視聴ページのデザイン変更に完全対応しました。",
+    "0.5.7": "Google Calendarへの登録不可を修正しました。",
   };
 
   toastr.options.closeButton = true;
